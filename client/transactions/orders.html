@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/png" href="../favicon.png">
+  <title>Web-ERP – Bestellungen</title>
+  <link rel="stylesheet" href="../css/styles.css" />
+</head>
+<body>
+  <header>
+    <h1><a href="../index.html">Web-ERP – Bestellungen</a></h1>
+  </header>
+  <nav class="main-nav">
+    <a href="customers.html">Kunden</a>
+    <a href="orders.html">Bestellungen</a>
+    <a href="order-items.html">Bestellpositionen</a>
+    <a href="products.html">Produkte</a>
+    <a href="users.html">Benutzer</a>
+  </nav>
+
+  <main>
+    <section>
+      <h2>Neue Bestellung anlegen</h2>
+        <form id="orderForm">
+            <select id="customer_id" name="customer_id" required><option value="" disabled selected>Kunde auswählen</option></select>
+            <input type="date" id="order_date" name="order_date" required>
+            
+            <button type="button" id="statusToggle" data-status="offen" class="status-btn">
+                Offen
+            </button>
+            <input type="hidden" id="status" name="status" value="offen">
+
+
+            <button type="submit">Bestellung anlegen</button>
+        </form>
+    </section>
+
+    <section>
+      <h2>Vorhandene Bestellungen</h2>
+      <div class="table-wrapper">
+        <table>
+			<thead><tr><th>ID</th><th>Kunde</th><th>Datum</th><th>Status</th></tr></thead>
+			<tbody id="orderList"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/ordersScript.js" defer></script>
+</body>
+</html>

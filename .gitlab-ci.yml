@@ -1,0 +1,67 @@
+stages:
+  - build    # Neue Stage zum Bauen des Projekts innerhalb von GitLab CI
+  - deploy   # Danach Upload zum Server
+
+variables:
+  SFTP_HOST: "node.fhstp.cc"
+  SFTP_PORT: "22"
+  SFTP_REMOTE_PATH: "node/"
+  SFTP_USER: "$SFTP_USER"
+  SFTP_PASS: "$SFTP_PASS"
+
+# 1) Build Job – führt npm ci & npm run build im GitLab Runner aus
+build_job:
+  stage: build
+  tags:
+  - docker
+  - linux
+  image: node:20-alpine # Leichtgewichtige Node-Umgebung
+  before_script:
+    # ENV-Datei schreiben (falls benötigt)
+    - cat "$ENV_FILE" | base64 -d > .env
+    # Optional: falls native Builds nötig, Build-Dependencies installieren
+    - apk update && apk add --no-cache python3 make g++
+  script:
+    # Installiere Node Modules (sauber, wie npm ci es tut)
+    - npm ci
+    # Erstelle ggf. Build-Artefakte (z. B. bei Frontend-Projekten)
+    #- npm run build
+  artifacts:
+    # Übergibt das Build-Ergebnis und evtl. weitere Dateien an den nächsten Job
+    paths:
+      - .
+    expire_in: 1h
+  only:
+    - main  # Nur auf main-Branch ausführen
+
+# 2) Deploy Job – lädt nur die fertigen Dateien hoch
+deploy_all_files:
+  stage: deploy
+  tags:
+    - docker
+    - linux
+  image: node:20-alpine
+  before_script:
+    # Tools installieren
+    - apk update
+    - apk add --no-cache lftp openssh-client
+  script:
+    # Upload nur relevanter Dateien – kein SSH nötig!
+    - echo "Lade gebaute Dateien nach ${SFTP_HOST}:${SFTP_REMOTE_PATH} hoch…"
+    - lftp -u "$SFTP_USER","$SFTP_PASS" -e "
+        set sftp:auto-confirm yes;
+        set net:max-retries 2;
+        set net:timeout 20;
+        mirror -R ./ ${SFTP_REMOTE_PATH} \
+          --exclude .git/ \
+          --exclude .gitlab-ci.yml \
+          --exclude node_modules/ \
+          --delete \
+          --verbose \
+          --parallel=4;
+        bye
+      " -p "$SFTP_PORT" sftp://"$SFTP_HOST"
+  dependencies:
+    - build_job  # Holt Dateien aus dem Build-Job
+  only:
+    - main

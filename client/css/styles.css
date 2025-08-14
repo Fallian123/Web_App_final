@@ -1,0 +1,224 @@
+/* Grundlayout */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+header {
+  background-color: #0a6ed1;
+  color: white;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+h1 a {
+  text-decoration: none;
+  color: inherit;
+}
+
+
+/* Hauptinhalt */
+main {
+  padding: 2px;
+}
+
+/* Kacheldesign für Übersicht */
+.tile-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px;
+}
+
+.tile {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  text-align: center;
+  padding: 16px 8px;
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.tile:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.tile span {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.tile small {
+  color: #555;
+  font-size: 0.85rem;
+}
+
+/* Tabellen für Listen */
+section {
+  max-width: 900px;
+  margin: 0 auto 32px auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  margin-top: 12px;
+}
+
+th, td {
+  border: 1px solid #ced6e0;
+  padding: 12px 10px;
+  text-align: left;
+}
+
+th {
+  background-color: #f0f4fa;
+  font-weight: bold;
+}
+
+tbody tr:nth-child(even) {
+  background: #f8fafc;
+}
+
+tbody tr:hover {
+  background: #e4f0fc;
+}
+
+/* Scrollbare Tabellen bei schmaler Breite */
+.table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  background: #fff;
+}
+
+/* Scrollbar-Styling für Webkit-Browser */
+.table-wrapper::-webkit-scrollbar {
+  height: 8px;
+}
+
+.table-wrapper::-webkit-scrollbar-track {
+  background: #f0f4fa;
+  border-radius: 4px;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb {
+  background-color: #0a6ed1;
+  border-radius: 4px;
+}
+
+@media (max-width: 700px) {
+  section {
+    max-width: 100%;
+    padding: 0 5vw;
+  }
+
+  table,
+  th, td {
+    font-size: 0.98rem;
+  }
+}
+
+/* Navigation */
+/* Navigation – breite Ansicht */
+.main-nav {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: nowrap;               /* verhindert Umbruch */
+  padding: 12px;
+  overflow-x: hidden;              /* keine Scrollbar */
+}
+
+/* Navigation Buttons */
+.main-nav a {
+  background-color: #ffffff;
+  color: #0a6ed1;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  padding: 8px 6px;
+  text-decoration: none;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s, background-color 0.2s;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  user-select: none;
+  flex: 0 0 auto;
+  max-width: 160px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: keep-all;
+  hyphens: none;
+}
+
+.main-nav a:hover,
+.main-nav a:focus {
+  background-color: #e4f0fc;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  outline: none;
+}
+
+/* Responsive Navigation */
+@media (max-width: 576px) {
+  .main-nav {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding: 12px;
+    overflow-x: unset;
+    flex-wrap: wrap;
+  }
+
+  .main-nav a {
+    flex: 1 1 auto;
+    white-space: normal;
+    font-size: 0.95rem;
+    max-width: 100%;
+  }
+}
+
+/* Button für Bestellungenstatus */
+.status-btn {
+    width: 140px;             /* feste Breite */
+    text-align: center;       /* Text in der Mitte */
+    padding: 2px 4px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+/* Farbvarianten je Status */
+.status-btn[data-status="storniert"] {
+    background-color: red;
+}
+.status-btn[data-status="offen"] {
+    background-color: blue;
+}
+.status-btn[data-status="abgeschlossen"] {
+    background-color: green;
+}

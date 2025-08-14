@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/png" href="../favicon.png">
+  <title>Web-ERP – Bestellpositionen</title>
+  <link rel="stylesheet" href="../css/styles.css" />
+</head>
+<body>
+  <header>
+    <h1><a href="../index.html">Web-ERP – Bestellpositionen</a></h1>
+  </header>
+  <nav class="main-nav">
+    <a href="customers.html">Kunden</a>
+    <a href="orders.html">Bestellungen</a>
+    <a href="order-items.html">Bestellpositionen</a>
+    <a href="products.html">Produkte</a>
+    <a href="users.html">Benutzer</a>
+  </nav>
+
+  <main>
+    <section>
+      <h2>Neue Bestellposition hinzufügen</h2>
+      <form id="orderItemForm">
+        <select id="orderSelect" name="order_id" required><option value="" disabled selected>Bestellung auswählen</option></select>
+        <select id="productSelect" name="product_id" required><option value="" disabled selected>Produkt auswählen</option></select>
+        <input type="number" id="quantity" name="quantity" placeholder="Menge" required>
+        <input type="number" step="0.01" id="price" name="price" placeholder="Preis" required>
+        <button type="submit">Speichern</button>
+      </form>
+    </section>
+
+    <section>
+      <h2>Vorhandene Bestellpositionen</h2>
+      <div class="table-wrapper">
+        <table><tr><th>ID</th><th>Bestellung</th><th>Produkt</th><th>Menge</th><th>Preis</th></tr></thead>
+          <tbody id="itemList"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/orderItemsScript.js" defer></script>
+</body>
+</html>

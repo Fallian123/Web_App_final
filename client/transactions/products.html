@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/png" href="../favicon.png">
+  <title>Web-ERP – Produkte</title>
+  <link rel="stylesheet" href="../css/styles.css" />
+</head>
+<body>
+  <header>
+    <h1><a href="../index.html">Web-ERP – Produkte</a></h1>
+  </header>
+  <nav class="main-nav">
+    <a href="customers.html">Kunden</a>
+    <a href="orders.html">Bestellungen</a>
+    <a href="order-items.html">Bestellpositionen</a>
+    <a href="products.html">Produkte</a>
+    <a href="users.html">Benutzer</a>
+  </nav>
+
+  <main>
+    <section>
+      <h2>Neues Produkt anlegen</h2>
+      <form id="productForm">
+        <input name="name" placeholder="Name" required>
+        <input name="description" placeholder="Beschreibung">
+        <input name="price" type="number" step="0.01" placeholder="Preis">
+        <input name="stock" type="number" placeholder="Bestand">
+        <button type="submit">Speichern</button>
+      </form>
+    </section>
+
+    <section>
+      <h2>Vorhandene Produkte</h2>
+      <div class="table-wrapper">
+        <table>
+			<thead><tr><th>ID</th><th>Name</th><th>Beschreibung</th><th>Preis</th><th>Bestand</th><th>Reserviert</th><th>Verfügbar</th></tr></thead>
+			<tbody id="productList"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/productsScript.js" defer></script>
+</body>
+</html>

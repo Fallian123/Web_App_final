@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/png" href="../favicon.png">
+  <title>Web-ERP – Kunden</title>
+  <link rel="stylesheet" href="../css/styles.css" />
+</head>
+<body>
+  <header>
+    <h1><a href="../index.html">Web-ERP – Benutzer</a></h1>
+  </header>
+  <nav class="main-nav">
+    <a href="customers.html">Kunden</a>
+    <a href="orders.html">Bestellungen</a>
+    <a href="order-items.html">Bestellpositionen</a>
+    <a href="products.html">Produkte</a>
+    <a href="users.html">Benutzer</a>
+  </nav>
+
+  <main>
+    <section>
+      <h2>Neuen Benutzer hinzufügen</h2>
+        <form id="userForm">
+            <input name="username" placeholder="Benutzername" required>
+            <input name="email" placeholder="E-Mail">
+            <input name="password" placeholder="Passwort">
+            <button type="submit">Speichern</button>
+        </form>
+    </section>
+
+    <section>
+      <h2>Vorhandene Benutzer</h2>
+      <table>
+        <thead><tr><th>ID</th><th>Name</th><th>E-Mail</th><th>Passwort</th></tr></thead>
+        <tbody id="userList"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/usersScript.js" defer></script>
+</body>
+</html>

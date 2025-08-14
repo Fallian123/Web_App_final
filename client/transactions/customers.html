@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/png" href="../favicon.png">
+  <title>Web-ERP – Kunden</title>
+  <link rel="stylesheet" href="../css/styles.css" />
+</head>
+<body>
+  <header>
+    <h1><a href="../index.html">Web-ERP – Kunden</a></h1>
+  </header>
+  <nav class="main-nav">
+    <a href="customers.html">Kunden</a>
+    <a href="orders.html">Bestellungen</a>
+    <a href="order-items.html">Bestellpositionen</a>
+    <a href="products.html">Produkte</a>
+    <a href="users.html">Benutzer</a>
+  </nav>
+
+  <main>
+    <section>
+      <h2>Neuen Kunden hinzufügen</h2>
+        <form id="customerForm">
+          <input type="text" name="name" id="name" placeholder="Name">
+          <input type="text" name="address" id="address" placeholder="Adresse">
+          <input type="email" name="email" id="email" placeholder="E-Mail">
+          <input type="tel" name="phone" id="phone" placeholder="Telefon">
+          <button type="submit">Speichern</button>
+        </form>
+    </section>
+
+    <section>
+      <h2>Vorhandene Kunden</h2>
+      <div class="table-wrapper">
+        <table>
+          <thead><tr><th>ID</th><th>Name</th><th>Adresse</th><th>E-Mail</th><th>Telefon</th></tr></thead>
+          <tbody id="customerList"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/customersScript.js" defer></script>
+</body>
+</html>
