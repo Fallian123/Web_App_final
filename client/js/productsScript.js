@@ -1,4 +1,4 @@
-async function loadProducts() {
+const loadProducts = async () => {
     try {
         const res = await fetch('/api/products');
         const data = await res.json();
@@ -64,7 +64,7 @@ async function loadProducts() {
     } catch (err) {
         console.error('Fehler beim Laden der Produkte:', err);
     }
-}
+};
 
 // Formular-Handler für neue Produkte
 document.getElementById('productForm').addEventListener('submit', async e => {

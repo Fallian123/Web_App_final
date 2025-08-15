@@ -2,7 +2,7 @@ let orderCache = [];
 let productCache = [];
 let customerCache = []; // neu für Kundennamen
 
-async function loadDropdownData() {
+const loadDropdownData = async () => {
     // Kunden laden (für Namen)
     const customerRes = await fetch('/api/customers');
     customerCache = await customerRes.json();
@@ -47,9 +47,9 @@ async function loadDropdownData() {
         option.textContent = `${p.name} – ${p.price}€`;
         productSelect.appendChild(option);
     });
-}
+};
 
-async function loadItems() {
+const loadItems = async () => {
     const res = await fetch('/api/order-items');
     const data = await res.json();
 
@@ -106,7 +106,7 @@ async function loadItems() {
 
         tbody.appendChild(tr);
     });
-}
+};
 
 document.addEventListener('DOMContentLoaded', async () => {
     await loadDropdownData();

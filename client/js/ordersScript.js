@@ -1,6 +1,6 @@
 let customerCache = [];
 
-async function loadCustomersDropdown() {
+const loadCustomersDropdown = async () => {
     const res = await fetch('/api/customers');
     customerCache = await res.json(); // im gleichen Schritt für Tabelle merken
 
@@ -20,9 +20,9 @@ async function loadCustomersDropdown() {
         option.textContent = `${c.name} (${c.email})`;
         customerSelect.appendChild(option);
     });
-}
+};
 
-async function loadOrders() {
+const loadOrders = async () => {
     const res = await fetch('/api/orders');
     const data = await res.json();
 
@@ -66,7 +66,7 @@ async function loadOrders() {
 
         tbody.appendChild(tr);
     });
-}
+};
 
 document.getElementById('orderForm').addEventListener('submit', async e => {
     e.preventDefault();
@@ -86,7 +86,7 @@ document.getElementById('orderForm').addEventListener('submit', async e => {
     loadOrders();
 });
 
-function initStatusToggle() {
+const initStatusToggle = () => {
     const toggleBtn = document.getElementById('statusToggle');
     const statusInput = document.getElementById('status');
 
@@ -94,13 +94,13 @@ function initStatusToggle() {
     let currentIndex = states.indexOf(statusInput.value);
     if (currentIndex === -1) currentIndex = 1; // Standard = offen
 
-    function updateButton() {
+    const updateButton = () => {
         const currentState = states[currentIndex];
         toggleBtn.dataset.status = currentState; // CSS kümmert sich um Farbe
         toggleBtn.textContent =
             currentState.charAt(0).toUpperCase() + currentState.slice(1);
         statusInput.value = currentState;
-    }
+    };
 
     toggleBtn.addEventListener('click', () => {
         currentIndex = (currentIndex + 1) % states.length;
@@ -108,7 +108,7 @@ function initStatusToggle() {
     });
 
     updateButton();
-}
+};
 
 document.addEventListener('DOMContentLoaded', async () => {
     await loadCustomersDropdown(); 

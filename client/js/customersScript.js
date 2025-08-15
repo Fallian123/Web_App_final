@@ -1,4 +1,4 @@
-async function load() {
+const load = async () => {
     try {
         const res = await fetch('/api/customers');
         const data = await res.json();
@@ -48,6 +48,6 @@ async function load() {
     } catch (err) {
         console.error('Fehler beim Laden der Kunden:', err);
     }
-}
+};
 
 document.addEventListener('DOMContentLoaded', load);
