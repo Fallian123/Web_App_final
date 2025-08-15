@@ -1,4 +1,4 @@
-async function loadUsers() {
+const loadUsers = async () => {
     try {
         const res = await fetch('/api/users');
         const data = await res.json();
@@ -53,7 +53,7 @@ async function loadUsers() {
     } catch (err) {
         console.error('Fehler beim Laden der Benutzer:', err);
     }
-}
+};
 
 // Formular-Submit (neuen Benutzer anlegen)
 document.getElementById('userForm').addEventListener('submit', async e => {

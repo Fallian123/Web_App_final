@@ -1,7 +1,7 @@
 const { Product, OrderItem } = require('../models');
 const Sequelize = require('sequelize');
 
-async function updateProductStock(productId) {
+const updateProductStock = async (productId) => {
   // Bestellte Menge summieren
   const result = await OrderItem.findOne({
     attributes: [
@@ -30,6 +30,6 @@ async function updateProductStock(productId) {
       available
     });
   }
-}
+};
 
 module.exports = updateProductStock;

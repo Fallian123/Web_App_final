@@ -1,7 +1,7 @@
 const { Product, OrderItem } = require('../models');
 const Sequelize = require('sequelize');
 
-async function updateAllProductsStock() {
+const updateAllProductsStock = async () => {
   const products = await Product.findAll({ attributes: ['id', 'stock'] });
 
   for (const product of products) {
@@ -17,6 +17,6 @@ async function updateAllProductsStock() {
 
     await product.update({ reserved, available });
   }
-}
+};
 
 module.exports = updateAllProductsStock;
