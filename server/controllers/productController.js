@@ -55,6 +55,11 @@ exports.remove = async (req, res, next) => {
     await item.destroy();
     res.status(204).end();
   } catch (err) {
+    if (err.name === 'SequelizeForeignKeyConstraintError') {
+      err.status = 409;
+      err.message =
+        'Produkt kann nicht gelöscht werden, da noch Bestellpositionen darauf verweisen.';
+    }
     next(err);
   }
 };
