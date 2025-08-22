@@ -40,7 +40,7 @@ deploy_all_files:
   tags:
     - docker
     - linux
-  image: node:20-alpine
+  image: alpine:latest
   before_script:
     # Tools installieren
     - apk update

@@ -1,34 +1,28 @@
 const { Product, OrderItem } = require('../models');
 const Sequelize = require('sequelize');
 
+<<<<<<< Updated upstream
 const updateProductStock = async (productId) => {
   // Bestellte Menge summieren
+=======
+/**
+ * Aktualisiert den Bestand EINES Produkts basierend auf seinen OrderItems
+ */
+async function updateProductStock(productId) {
+>>>>>>> Stashed changes
   const result = await OrderItem.findOne({
     attributes: [
-      [
-        Sequelize.fn(
-          'COALESCE',
-          Sequelize.fn('SUM', Sequelize.col('quantity')),
-          0
-        ),
-        'reserved'
-      ]
+      [Sequelize.fn('COALESCE', Sequelize.fn('SUM', Sequelize.col('quantity')), 0), 'reserved']
     ],
     where: { product_id: productId }
   });
 
-  // Falls keine OrderItems existieren → 0 reserviert
   const reserved = parseInt(result?.get('reserved') || 0, 10);
-
-  // Produkt abrufen und Werte berechnen
   const product = await Product.findByPk(productId);
+
   if (product) {
     const available = (product.stock || 0) - reserved;
-
-    await product.update({
-      reserved,
-      available
-    });
+    await product.update({ reserved, available });
   }
 };
 

@@ -1,10 +1,31 @@
+<<<<<<< Updated upstream
 const loadProducts = async () => {
     try {
         const res = await fetch('/api/products');
         const data = await res.json();
+=======
+/**
+ * Lädt Produkte und zeigt diese in einer Tabelle
+ */
+async function loadProducts() {
+  try {
+    const res = await fetch('/api/products');
+    const data = await res.json();
+    const tbody = document.getElementById('productList');
+    while (tbody.firstChild) tbody.removeChild(tbody.firstChild);
+>>>>>>> Stashed changes
 
-        const tbody = document.getElementById('productList');
+    data.forEach(p => {
+      const tr = document.createElement('tr');
+      tr.appendChild(createCell(p.id));
+      tr.appendChild(createCell(p.name));
+      tr.appendChild(createCell(p.description || ''));
+      tr.appendChild(createCell(p.price));
+      tr.appendChild(createCell(p.stock));
+      tr.appendChild(createCell(p.reserved));
+      tr.appendChild(createCell(p.available));
 
+<<<<<<< Updated upstream
         // Bestehende Zeilen löschen
         while (tbody.firstChild) {
             tbody.removeChild(tbody.firstChild);
@@ -65,27 +86,47 @@ const loadProducts = async () => {
         console.error('Fehler beim Laden der Produkte:', err);
     }
 };
-
-// Formular-Handler für neue Produkte
-document.getElementById('productForm').addEventListener('submit', async e => {
-    e.preventDefault();
-    const form = e.target;
-
-    await fetch('/api/products', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            name: form.name.value,
-            description: form.description.value,
-            price: form.price.value,
-            stock: form.stock.value,
-            reserved: form.reserved.value,
-            available: form.available.value
-        })
+=======
+      const tdActions = document.createElement('td');
+      tdActions.appendChild(
+        createDeleteButton(
+          `/api/products/${p.id}`,
+          `Möchten Sie das Produkt "${p.name}" wirklich löschen?`,
+          loadProducts
+        )
+      );
+      tr.appendChild(tdActions);
+      tbody.appendChild(tr);
     });
+  } catch (err) {
+    console.error("❌ Fehler beim Laden der Produkte:", err);
+  }
+}
+>>>>>>> Stashed changes
 
+// Produktformular - POST
+document.getElementById('productForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const form = e.target;
+  try {
+    const stockValue = Number(form.stock.value);
+    await fetch('/api/products', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: form.name.value,
+        description: form.description.value,
+        price: parseFloat(form.price.value) || 0,
+        stock: stockValue,
+        reserved: 0,
+        available: stockValue
+      })
+    });
     form.reset();
     loadProducts();
+  } catch (err) {
+    console.error('❌ Fehler beim Anlegen eines Produkts:', err);
+  }
 });
 
 document.addEventListener('DOMContentLoaded', loadProducts);

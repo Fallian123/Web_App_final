@@ -1,10 +1,28 @@
+<<<<<<< Updated upstream
 const loadUsers = async () => {
     try {
         const res = await fetch('/api/users');
         const data = await res.json();
+=======
+/**
+ * Lädt alle Benutzer und zeigt sie in einer Tabelle
+ */
+async function loadUsers() {
+  try {
+    const res = await fetch('/api/users');
+    const data = await res.json();
+    const tbody = document.getElementById('userList');
+    while (tbody.firstChild) tbody.removeChild(tbody.firstChild);
+>>>>>>> Stashed changes
 
-        const tbody = document.getElementById('userList');
+    data.forEach(u => {
+      const tr = document.createElement('tr');
+      tr.appendChild(createCell(u.id));
+      tr.appendChild(createCell(u.username));
+      tr.appendChild(createCell(u.email));
+      tr.appendChild(createCell(u.password));
 
+<<<<<<< Updated upstream
         // Tabelle leeren
         while (tbody.firstChild) {
             tbody.removeChild(tbody.firstChild);
@@ -54,24 +72,43 @@ const loadUsers = async () => {
         console.error('Fehler beim Laden der Benutzer:', err);
     }
 };
-
-// Formular-Submit (neuen Benutzer anlegen)
-document.getElementById('userForm').addEventListener('submit', async e => {
-    e.preventDefault();
-    const form = e.target;
-
-    await fetch('/api/users', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            username: form.username.value,
-            email: form.email.value,
-            password: form.password.value
-        })
+=======
+      const tdActions = document.createElement('td');
+      tdActions.appendChild(
+        createDeleteButton(
+          `/api/users/${u.id}`,
+          `Möchten Sie den Benutzer "${u.username}" wirklich löschen?`,
+          loadUsers
+        )
+      );
+      tr.appendChild(tdActions);
+      tbody.appendChild(tr);
     });
+  } catch (err) {
+    console.error('❌ Fehler beim Laden der Benutzer:', err);
+  }
+}
+>>>>>>> Stashed changes
 
+// Benutzerformular - POST
+document.getElementById('userForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const form = e.target;
+  try {
+    await fetch('/api/users', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username: form.username.value,
+        email: form.email.value,
+        password: form.password.value
+      })
+    });
     form.reset();
     loadUsers();
+  } catch (err) {
+    console.error("❌ Fehler beim Anlegen des Benutzers:", err);
+  }
 });
 
 document.addEventListener('DOMContentLoaded', loadUsers);
